@@ -10,8 +10,6 @@ export default function Home() {
   const [displayedText, setDisplayedText] = useState("");
   const { state, dispatch } = useContext(OnboardingContext);
 
-  console.log(state);
-
   const steps = [
     { step: 0, titel: "What is your goal?", input: null },
     { step: 1, titel: "Your physiqe in this area right now?", input: null },
@@ -68,7 +66,7 @@ export default function Home() {
         } else {
           clearInterval(interval);
         }
-      }, 100);
+      }, 50);
     }
   }, [status, data]);
   // if (status === 'loading') {
