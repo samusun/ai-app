@@ -6,36 +6,29 @@ import OnboardingContext from "./Context/OnboardingContext";
 import { initialValues, onboardingReducer } from "./reducers/onboardingReducer";
 import Onboarding from "./Components/Onboarding";
 
-import {
-  createBrowserRouter,
-  Link,
-  Router,
-  Route,
-  RouterProvider,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import {
   AppShell,
-  Aside,
-  Badge,
   Burger,
-  Footer,
+  Button,
   Header,
   MediaQuery,
   Navbar,
   NavLink,
   Text,
+  Title,
   useMantineTheme,
 } from "@mantine/core";
 import {
   IconActivity,
   IconChevronRight,
-  IconCircleOff,
   IconGauge,
   IconHome2,
+  IconUserCircle,
+  IconBrandHipchat,
 } from "@tabler/icons";
+import Signup from "./Pages/Signup";
 
 // import MyNavbar from "./Components/MyNavbar";
 // Navbar
@@ -61,6 +54,7 @@ function App() {
           // asideOffsetBreakpoint="lg"
           navbar={
             <Navbar
+              className="bg-gray-300"
               hiddenBreakpoint="sm"
               hidden={!opened}
               width={{ sm: 200, lg: 300 }}
@@ -78,29 +72,18 @@ function App() {
               />
 
               <NavLink
-                label="Saved workouts"
-                icon={<IconCircleOff size={16} stroke={1.5} />}
+                label="Profile"
+                icon={<IconUserCircle size={16} stroke={1.5} />}
+                onClick={() => navigateAndClose("/profile")}
                 disabled
               />
-              <NavLink
-                label="With description"
-                description="Additional information"
-                icon={
-                  <Badge
-                    size="xs"
-                    variant="filled"
-                    color="red"
-                    sx={{ width: 16, height: 16, padding: 0 }}
-                  >
-                    3
-                  </Badge>
-                }
-              />
+
               <NavLink
                 label="Todays workout"
                 icon={<IconActivity size={16} stroke={1.5} />}
                 rightSection={<IconChevronRight size={12} stroke={1.5} />}
-                variant="subtle"
+                // variant="subtle"
+
                 active
               />
               <NavLink
@@ -121,13 +104,7 @@ function App() {
 
           header={
             <Header height={{ base: 50, md: 70 }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  height: "100%",
-                }}
-              >
+              <div className="flex justify-between items-center h-full">
                 <MediaQuery largerThan="sm" styles={{ display: "none" }}>
                   <Burger
                     opened={opened}
@@ -138,18 +115,28 @@ function App() {
                   />
                 </MediaQuery>
 
-                <Text>Gym Buddy</Text>
+                <Title className="text-gray-600">Gym Buddy</Title>
+                <Button
+                  onClick={() => navigate("/signup")}
+                  color="green"
+                  className="mr-2"
+                >
+                  Signup
+                </Button>
               </div>
             </Header>
           }
-          footer={<Footer height={30}>Optional footer</Footer>}
         >
+          <IconBrandHipchat
+            size={50}
+            stroke={1.5}
+            className="absolute -bottom-0 right-2 hover:bg-gray-700 transition duration-200 ease-in-out transform hover:scale-110"
+            color="green"
+          />
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/onboarding" element={<Onboarding />} />
-            {/* <Route exact path="/upcoming/:user" element={<Upcoming/>}/>
-          <Route exact path="/record/:user" element={<Record/>}/>
-          <Route path="*" element={<NotFound/>}/> */}
+            <Route exact path="/signup" element={<Signup />} />
           </Routes>
         </AppShell>
       </OnboardingContext.Provider>
@@ -158,21 +145,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <AppShell
-padding="0"
-navbar={<MyNavbar />}
-header={<Header height={30}>GymBuddy</Header>}
-styles={(theme) => ({
-  main: {
-    backgroundColor:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[8]
-        : theme.colors.gray[0],
-  },
-})}
->
-
-</AppShell> */
-}

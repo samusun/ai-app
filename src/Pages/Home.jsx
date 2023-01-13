@@ -9,17 +9,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [displayedText, setDisplayedText] = useState("");
   const { state, dispatch } = useContext(OnboardingContext);
-
-  const steps = [
-    { step: 0, titel: "What is your goal?", input: null },
-    { step: 1, titel: "Your physiqe in this area right now?", input: null },
-    { step: 2, titel: "When do you wanna reach this?", input: null },
-    {
-      step: 3,
-      titel: "How many days per week (do you plan to work out)?",
-      input: null,
-    },
-  ];
+  const [disabled, setDisabled] = useState(false);
 
   // const configuration = new Configuration({
   //     apiKey: "process.env.OPENAI_API_KEY",
@@ -32,6 +22,7 @@ export default function Home() {
 
   const fetchAiResponse = useCallback(async () => {
     if (input !== "") {
+      setDisabled(true);
       const response = await axios.post(
         "https://api.openai.com/v1/completions",
         {
@@ -68,6 +59,8 @@ export default function Home() {
         }
       }, 50);
     }
+    setInput("");
+    setDisabled(false);
   }, [status, data]);
   // if (status === 'loading') {
   //   return <div>Loading...</div>
@@ -76,7 +69,11 @@ export default function Home() {
   // if (status === 'error') {
   //   return <div>Error: {error.message}</div>
   // }
-
+  const handleEnter = (event) => {
+    if (event.key === "Enter" && !disabled) {
+      refetch();
+    }
+  };
   return (
     <div className="h-screen bg-gray-800 flex items-center justify-center">
       <div className="w-8/12 space-y-2">
@@ -86,8 +83,10 @@ export default function Home() {
           placeholder="Write your message here"
           value={input}
           onChange={(event) => setInput(event.currentTarget.value)}
+          onKeyPress={handleEnter}
         />
         <Button
+          disabled={disabled}
           variant="gradient"
           gradient={{ from: "teal", to: "lime", deg: 105 }}
           onClick={() => refetch()}
