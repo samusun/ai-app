@@ -64,54 +64,52 @@ function Signup() {
   };
 
   return (
-    <div className="p-5 h-screen bg-gray-800">
-      <Box sx={{ maxWidth: 300 }} mx="auto">
-        <Title className="text-white mb-5">Sign up</Title>
-        <form className="" onSubmit={handleSubmit}>
-          <div>
-            <TextInput
-              withAsterisk
-              placeholder="Your name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <p className=" mt-1 text-red-400">{errors.name}</p>
-          </div>
+    <div className="min-h-screen bg-black flex flex-col items-center justify-center">
+      <Title className="text-white mb-5">Sign up</Title>
+      <form className="flex justify-center flex-col" onSubmit={handleSubmit}>
+        <div>
+          <TextInput
+            withAsterisk
+            placeholder="Your name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <p className=" mt-1 text-red-400">{errors.name}</p>
+        </div>
 
-          <div>
-            <TextInput
-              withAsterisk
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <p className=" mt-1 text-red-400">{errors.email}</p>
-          </div>
-          <div>
-            <PasswordInput
-              withAsterisk
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <p className=" mt-1 text-red-400">{errors.password}</p>
-          </div>
-          <div>
-            <PasswordInput
-              withAsterisk
-              name="confirmPassword"
-              placeholder="Confirm password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-            <p className=" mt-1 text-red-400">{errors.confirmPassword}</p>
-          </div>
-          <Button onClick={handleSubmit}>Submit</Button>
-        </form>
-      </Box>
+        <div>
+          <TextInput
+            withAsterisk
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <p className=" mt-1 text-red-400">{errors.email}</p>
+        </div>
+        <div>
+          <PasswordInput
+            withAsterisk
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <p className=" mt-1 text-red-400">{errors.password}</p>
+        </div>
+        <div>
+          <PasswordInput
+            withAsterisk
+            name="confirmPassword"
+            placeholder="Confirm password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+          <p className=" mt-1 text-red-400">{errors.confirmPassword}</p>
+        </div>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </form>
     </div>
   );
 }

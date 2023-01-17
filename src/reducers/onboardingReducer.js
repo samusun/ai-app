@@ -5,6 +5,7 @@ export const initialValues = {
   Physiqe: "",
   Deadline: "",
   DaysPerWeek: "",
+  loggedIn: false,
 };
 
 export const onboardingReducer = (state, action) => {

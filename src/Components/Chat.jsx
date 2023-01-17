@@ -1,15 +1,34 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useContext,
+} from "react";
 import axios from "axios";
 import { List, Input, Textarea, Tooltip, ThemeIcon } from "@mantine/core";
 import { useQuery } from "react-query";
 import { IconCircleCheck, IconCircleDashed, IconSend } from "@tabler/icons";
-import aiAvatar from "../Assets/aiAvatar.png";
+import OnboardingContext from "../Context/OnboardingContext";
 
-const Home = () => {
+const Chat = () => {
   const [messages, setMessages] = useState([]);
+  const { state, dispatch } = useContext(OnboardingContext);
+
   const [input, setInput] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [response, setResponse] = useState({});
+
+  useEffect(() => {
+    state.loggedIn
+      ? setInput(
+          "You are a personal trainer called JJ who welcomes your friend back, asking him random questions about his workout"
+        )
+      : setInput(
+          "You are a personal trainer called JJ who is taking an anamnesis before creating a personalized workout routine. You start the meeting with welcoming me"
+        );
+    setTimeout(refetch, 50);
+  }, []);
 
   useEffect(() => {
     if (response.text) {
@@ -19,16 +38,17 @@ const Home = () => {
 
   const handleSubmit = useCallback(async () => {
     if (input !== "") {
+      disabled && setMessages([...messages, { user: "me", text: input }]);
       setDisabled(true);
-      setMessages([...messages, { user: "me", text: input }]);
       const res = await axios
         .post(
           "https://api.openai.com/v1/completions",
           {
             model: "text-davinci-003",
-            prompt: input,
-            temperature: 0.1,
-            max_tokens: 70,
+            prompt: `${input}. Always end your responses with atleast one question.`,
+            temperature: 0.9,
+
+            max_tokens: 100,
           },
           {
             headers: {
@@ -45,14 +65,12 @@ const Home = () => {
     }
   }, [input, messages]);
 
-  console.log(messages);
   const { status, data, error, refetch } = useQuery("aiResponse", handleSubmit);
 
   const aiIcon = (
     <ThemeIcon color="teal" size={24} radius="xl">
       <IconCircleCheck size={16} />
     </ThemeIcon>
-    // <img src={aiAvatar} alt="aiAvatar" className="w-15 h-15" />
   );
 
   const userIcon = (
@@ -121,4 +139,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Chat;
