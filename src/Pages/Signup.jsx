@@ -1,7 +1,9 @@
 import { Box, Button, PasswordInput, TextInput, Title } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import OnboardingContext from "../Context/OnboardingContext";
 
 function Signup() {
+  const { state, dispatch } = useContext(OnboardingContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -59,13 +61,14 @@ function Signup() {
     event.preventDefault();
     const isValid = validate();
     if (isValid) {
-      console.log(formData);
+      dispatch({ type: "SIGNUP", payload: formData });
     }
   };
 
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center">
-      <Title className="text-white mb-5">Sign up</Title>
+      <Title className="text-white">Sign up</Title>
+      <h4 className="text-white mb-5">To keep your routines and .. stuff</h4>
       <form className="flex justify-center flex-col" onSubmit={handleSubmit}>
         <div>
           <TextInput

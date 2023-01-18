@@ -1,4 +1,5 @@
 export const initialValues = {
+  user: {},
   step: 0,
   Age: "",
   Goal: "",
@@ -10,6 +11,17 @@ export const initialValues = {
 
 export const onboardingReducer = (state, action) => {
   switch (action.type) {
+    case "SIGNUP":
+      return {
+        ...state,
+        user: action.payload,
+        loggedIn: true,
+      };
+    case "LOGOUT":
+      return {
+        ...state,
+        loggedIn: false,
+      };
     case "NEXT_STEP":
       return {
         ...state,

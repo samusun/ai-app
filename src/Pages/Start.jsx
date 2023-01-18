@@ -19,7 +19,7 @@ export default function Start() {
           size="lg"
           rightIcon={<IconArrowRight size={24} />}
         >
-          Start The Journey{" "}
+          Start The Journey
         </Button>
       </div>
     </div>

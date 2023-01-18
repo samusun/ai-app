@@ -114,7 +114,7 @@ const Chat = () => {
       </div>
 
       <Textarea
-        className="absolute bottom-20 left-0 w-full z-10"
+        className="absolute bottom-20 px-3 left-0 right-0 "
         autosize
         placeholder="Write your message here"
         value={input}
