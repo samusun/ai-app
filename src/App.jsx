@@ -34,6 +34,7 @@ import AiOnboarding from "./Components/Chat";
 import Start from "./Pages/Start";
 import Chat from "./Components/Chat";
 import Profile from "./Pages/Profile";
+import Routines from "./Pages/Routines";
 
 // import MyNavbar from "./Components/MyNavbar";
 // Navbar
@@ -77,8 +78,7 @@ export default function App() {
 
                 <NavLink
                   icon={<IconActivity size={30} stroke={1.5} color="white" />}
-                  onClick={() => navigateAndClose("/profile")}
-                  disabled
+                  onClick={() => navigateAndClose("/routines")}
                 />
 
                 <NavLink
@@ -92,7 +92,7 @@ export default function App() {
               <Route exact path="/" element={<Start />} />
               <Route exact path="/chat" element={<Chat />} />
               <Route exact path="/profile" element={<Profile />} />
-              <Route exact path="/routines" element={<GenerateRoutine />} />
+              <Route exact path="/routines" element={<Routines />} />
             </Routes>
           </AppShell>
         )}
