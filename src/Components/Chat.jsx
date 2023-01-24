@@ -27,7 +27,7 @@ const Chat = () => {
   };
 
   const initialPromt =
-    "You are a personal trainer called Pranoy who is getting to know your customer before creating a personalized workout routine. You start the meeting with welcoming the new customer. You end every message with a question relevant for creating a custom made gym routine";
+    "you are a personal trainer called Pranoy who is getting to know your customer before creating a personalized workout routine. You start the meeting with welcoming the new customer. You end every message with a question relevant for creating a custom made gym routine";
   const [conversationHistory, setConversationHistory] = useState(
     `${initialPromt} \n`
   );
