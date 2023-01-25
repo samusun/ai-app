@@ -7,7 +7,6 @@ import {
   Text,
   TextInput,
   Title,
-  Accordion,
   AppShell,
   Navbar,
   Header,
@@ -49,26 +48,31 @@ const Routines = () => {
     setOpened(true);
     setSelectedExcercise(excercise);
   };
-  const list = excercises.map((excercise, i) => (
-    <Accordion.Item
-      key={excercise.name}
-      // onClick={() => handleClick(excercise)}
-      variant="separated"
-      // color="grape"
-      // className="mb-2 w-40 text-white"
 
-      value={excercise.name}
-    >
-      <Accordion.Control>{excercise.name}</Accordion.Control>
-      <Accordion.Panel>
-        Colors, fonts, shadows and many other parts are customizable to fit your
-        design needs
-      </Accordion.Panel>
-    </Accordion.Item>
-  ));
   return (
     <>
-      {/* <Modal
+      <Header
+        height={60}
+        p="xs"
+        className="bg-black flex justify-center items-center"
+      >
+        <div className="flex">
+          {daysArray.map((day) => (
+            <div
+              key={day}
+              className="m-1 rounded-full h-9 w-9 flex items-center justify-center cursor-pointer border-solid border-white"
+              onClick={() => {
+                /* handle click event */
+              }}
+            >
+              <p className="text-xl font-bold text-white">{day}</p>
+            </div>
+          ))}
+        </div>
+      </Header>
+
+      <div className="flex flex-col items-center pt-10 h-full w-full bg-black">
+        <Modal
           size="sm"
           opened={opened}
           // title={selectedExcercise.name}
@@ -106,12 +110,25 @@ const Routines = () => {
             />
           )}
           <p>{selectedExcercise.description}</p>
-        </Modal> */}
+        </Modal>
 
-      <Title className="text-white">Routines</Title>
-      <h2 className="text-white mb-5">Monday</h2>
+        <Title className="text-white">Routines</Title>
+        <h2 className="text-white mb-5">Monday</h2>
 
-      <Accordion defaultValue="customization">{list}</Accordion>
+        <div className="flex flex-col ">
+          {excercises.map((excercise) => (
+            <Button
+              key={excercise.name}
+              onClick={() => handleClick(excercise)}
+              variant="outline"
+              color="grape"
+              className="mb-2 w-40 text-white"
+            >
+              {excercise.name}
+            </Button>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
