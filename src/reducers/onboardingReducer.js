@@ -1,11 +1,6 @@
 export const initialValues = {
   user: {},
   step: 0,
-  Age: "",
-  Goal: "",
-  Physiqe: "",
-  Deadline: "",
-  DaysPerWeek: "",
   loggedIn: false,
 };
 

@@ -35,6 +35,7 @@ import Start from "./Pages/Start";
 import Chat from "./Components/Chat";
 import Profile from "./Pages/Profile";
 import Routines from "./Pages/Routines";
+import Onboarding from "./Components/Onboarding";
 
 // import MyNavbar from "./Components/MyNavbar";
 // Navbar
@@ -90,6 +91,7 @@ export default function App() {
           >
             <Routes>
               <Route exact path="/" element={<Start />} />
+              <Route exact path="/onboarding" element={<Onboarding />} />
               <Route exact path="/chat" element={<Chat />} />
               <Route exact path="/profile" element={<Profile />} />
               <Route exact path="/routines" element={<Routines />} />

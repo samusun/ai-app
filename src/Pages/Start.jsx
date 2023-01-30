@@ -14,7 +14,7 @@ export default function Start() {
           Improve your workout using free AI based tools
         </Text>
         <Button
-          onClick={() => navigate("/chat")}
+          onClick={() => navigate("/onboarding")}
           radius="xl"
           size="lg"
           rightIcon={<IconArrowRight size={24} />}

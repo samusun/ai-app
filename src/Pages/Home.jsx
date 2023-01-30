@@ -45,7 +45,6 @@ const Home = () => {
     }
   }, [input, messages]);
 
-  console.log(messages);
   const { status, data, error, refetch } = useQuery("aiResponse", handleSubmit);
 
   const aiIcon = (
