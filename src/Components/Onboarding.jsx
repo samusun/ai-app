@@ -144,6 +144,7 @@ export default function Onboarding() {
               min={1}
               labelAlwaysOn
               max={5}
+              color="dark"
               marks={MARKS}
               styles={{ markLabel: { display: "none" } }}
             />
