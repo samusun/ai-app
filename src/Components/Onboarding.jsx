@@ -1,6 +1,12 @@
 import React, { useContext, useState } from "react";
 import OnboardingContext from "../Context/OnboardingContext";
-import { Button, NumberInput, Slider, Textarea } from "@mantine/core";
+import {
+  Button,
+  TextInput,
+  NumberInput,
+  Slider,
+  Textarea,
+} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { IconArrowBack, IconArrowBearLeft } from "@tabler/icons";
 
@@ -8,8 +14,8 @@ export default function Onboarding() {
   const { state, dispatch } = useContext(OnboardingContext);
   const [input, setInput] = useState("");
   const [sliderInput, setSliderInput] = useState(3);
+  const [name, setName] = useState("");
   const navigate = useNavigate();
-  console.log(state);
 
   const steps = [
     {
@@ -21,14 +27,16 @@ export default function Onboarding() {
       input: null,
       options: ["Let's go"],
     },
+
     {
       step: 1,
-      titel: "Where do you currently work out?",
-      id: "location",
-      options: ["Commercial Gym", "Home Gym", "Outside"],
-      input: null,
+      titel: "What should i call you?",
+      id: "name",
+      options: [],
+      textfield: true,
       buttonText: "Next",
     },
+
     {
       step: 2,
       titel: "What's your current fitness goal?",
@@ -46,26 +54,92 @@ export default function Onboarding() {
     },
     {
       step: 3,
-      titel: "How many days a week would you like to workout?",
-      undertitle: "",
-      options: [],
-      slider: true,
-      stepsFrom: 1,
-      stepsTo: 7,
-      id: "DaysAWeek",
+      titel: "How would you describe your current fitness level?",
+      id: "fitness_level",
+      options: ["Beginner", "Intermediate", "Advanced", "Elite"],
       input: null,
       buttonText: "Next",
     },
 
     {
       step: 4,
-      titel: "When was the last time you worked out regularly?",
-      undertitle: "",
-      options: ["Years Ago", "Months Ago", "Weeks Ago", "I train regularly"],
-      id: "LastWorkout",
+      titel: "What's your favorite type of workout?",
+      id: "workout_type",
+      options: [
+        "Cardio",
+        "Weightlifting",
+        "Yoga",
+        "High-Intensity Interval Training (HIIT)",
+      ],
       input: null,
-      lastQuestion: true,
-      buttonText: "Finish",
+      buttonText: "Next",
+    },
+    {
+      step: 5,
+      titel: "Where do you currently work out?",
+      id: "location",
+      options: ["Commercial Gym", "Home Gym", "Outside"],
+      input: null,
+      buttonText: "Next",
+    },
+    {
+      step: 6,
+      titel: "How many days a week would you like to workout?",
+      id: "Days_per_week",
+      undertitle: "",
+      options: [],
+      slider: true,
+      stepsFrom: 1,
+      stepsTo: 7,
+      input: null,
+      buttonText: "Next",
+      min: 1,
+      max: 7,
+      default: 3,
+      marks: [
+        { value: 1, label: "1 day" },
+        { value: 2, label: "2 days" },
+        { value: 3, label: "3 days" },
+        { value: 4, label: "4 days" },
+        { value: 5, label: "5 days" },
+        { value: 6, label: "6 days" },
+        { value: 7, label: "7 days" },
+      ],
+      label: (val) =>
+        steps[state.step].marks.find((mark) => mark.value === val).label,
+    },
+
+    {
+      step: 7,
+      titel: "What is your height?",
+      id: "height",
+      undertitle: "",
+      options: [],
+      slider: true,
+      min: 100,
+      max: 230,
+      default: 150,
+
+      metric: "cm",
+      input: null,
+      buttonText: "Next",
+      label: (val) => `${val} cm`,
+    },
+    {
+      step: 8,
+      titel: "What is your weight?",
+      id: "weight",
+      undertitle: "",
+      options: [],
+      slider: true,
+      min: 30,
+      max: 200,
+      default: 70,
+
+      metric: "kg",
+      input: null,
+      buttonText: "Next",
+      label: (val) => `${val} kg`,
     },
     {
       step: 5,
@@ -79,26 +153,8 @@ export default function Onboarding() {
     },
   ];
 
-  // const handleNextStep = () => {
-  //   if (state.step === 5) {
-  //     navigate("/");
-  //   } else {
-  //     dispatch({
-  //       type: "SET_INPUT",
-  //       input: input,
-  //       id: steps[state.step].id,
-  //     });
-  //     setInput("");
-  //   }
-  // };
+  // Make to JSON: console.log(JSON.stringify(state));
 
-  const MARKS = [
-    { value: 1, label: "1 day" },
-    { value: 2, label: "2 days" },
-    { value: 3, label: "3 days" },
-    { value: 4, label: "4 days" },
-    { value: 5, label: "5 days" },
-  ];
   return (
     <div className="h-screen bg-gray-800 flex flex-col items-center justify-center text-slate-200">
       {state.step > 0 && (
@@ -124,11 +180,15 @@ export default function Onboarding() {
             variant="outline"
             color="gray"
             onClick={() =>
-              dispatch({
-                type: "SET_INPUT",
-                input: option,
-                id: steps[state.step].id,
-              })
+              steps[state.step].step === 0
+                ? dispatch({
+                    type: "NEXT_STEP",
+                  })
+                : dispatch({
+                    type: "SET_INPUT",
+                    input: option,
+                    id: steps[state.step].id,
+                  })
             }
           >
             {option}
@@ -139,13 +199,13 @@ export default function Onboarding() {
             <Slider
               onChangeEnd={setSliderInput}
               className="w-4/5"
-              label={(val) => MARKS.find((mark) => mark.value === val).label}
-              defaultValue={3}
-              min={1}
+              label={(val) => steps[state.step].label(val)}
+              defaultValue={steps[state.step].default}
               labelAlwaysOn
-              max={5}
-              color="dark"
-              marks={MARKS}
+              min={steps[state.step].min}
+              max={steps[state.step].max}
+              color="light"
+              marks={steps[state.step].marks}
               styles={{ markLabel: { display: "none" } }}
             />
             <Button
@@ -164,6 +224,31 @@ export default function Onboarding() {
             </Button>
           </>
         )}
+
+        {steps[state.step].textfield && (
+          <>
+            <TextInput
+              onChange={(event) => setName(event.currentTarget.value)}
+              className="w-4/5"
+              color="light"
+            />
+            <Button
+              className="mt-4 w-3/6"
+              variant="outline"
+              color="gray"
+              onClick={() =>
+                dispatch({
+                  type: "SET_INPUT",
+                  input: name,
+                  id: steps[state.step].id,
+                })
+              }
+            >
+              Next
+            </Button>
+          </>
+        )}
+
         {steps[state.step].lastStep && (
           <Button
             className="mt-4 w-3/6"
@@ -174,15 +259,7 @@ export default function Onboarding() {
             Go To Chat
           </Button>
         )}
-        {/* // <Textarea
-          //   autosize
-          //   placeholder={steps[state.step].id}
-          //   value={input}
-          //   onChange={(event) => setInput(event.currentTarget.value)}
-          //   minRows={2}
-          //   required
-          //   className="w-full pb-5"
-          // /> */}
+
         <p>
           {state.step}/{steps.length - 1}
         </p>
