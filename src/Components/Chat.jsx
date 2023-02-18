@@ -19,15 +19,15 @@ const Chat = () => {
 
   const DEFAULT_PARAMS = {
     model: "text-davinci-002",
-    temperature: 0.2,
+    temperature: 1,
     max_tokens: 256,
-    top_p: 0.5,
+    top_p: 0.9,
     frequency_penalty: 0,
     presence_penalty: 0,
   };
 
   const initialPromt =
-    "You are a personal trainer called Pranoy who is getting to know your customer before creating a personalized workout routine. You start the meeting with welcoming the new customer. You end every message with a question relevant for creating a custom made gym routine";
+    "Write something super funny about workout, then welcome me to the chat, ask if i have any questions for a funny chat like you";
   const [conversationHistory, setConversationHistory] = useState(
     `${initialPromt} \n`
   );
@@ -134,7 +134,7 @@ const Chat = () => {
     <div className="h-full bg-black">
       <div
         ref={divRef}
-        className="absolute top-0 left-0 right-0 max-h-[36rem] overflow-y-scroll m-5"
+        className="absolute top-25 left-0 right-0 max-h-[36rem] overflow-y-scroll m-5"
       >
         {messages.map((item, i) => (
           <div

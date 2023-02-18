@@ -6,9 +6,12 @@ import {
   NumberInput,
   Slider,
   Textarea,
+  Image,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { IconArrowBack, IconArrowBearLeft } from "@tabler/icons";
+import maskot from "../Assets/maskot.svg";
+import scepticMaskot from "../Assets/scepticMaskot.svg";
 
 export default function Onboarding() {
   const { state, dispatch } = useContext(OnboardingContext);
@@ -23,6 +26,7 @@ export default function Onboarding() {
       titel: "Let's find your new routine",
       undertitle:
         "The following questions will help us to find the best routine for you",
+      image: maskot,
       id: "Onboarding",
       input: null,
       options: ["Let's go"],
@@ -32,6 +36,7 @@ export default function Onboarding() {
       step: 1,
       titel: "What should i call you?",
       id: "name",
+      image: scepticMaskot,
       options: [],
       textfield: true,
       buttonText: "Next",
@@ -40,6 +45,7 @@ export default function Onboarding() {
     {
       step: 2,
       titel: "What's your current fitness goal?",
+      image: scepticMaskot,
       undertitle: "",
       options: [
         "Lose Weight",
@@ -55,6 +61,7 @@ export default function Onboarding() {
     {
       step: 3,
       titel: "How would you describe your current fitness level?",
+      image: scepticMaskot,
       id: "fitness_level",
       options: ["Beginner", "Intermediate", "Advanced", "Elite"],
       input: null,
@@ -64,6 +71,7 @@ export default function Onboarding() {
     {
       step: 4,
       titel: "What's your favorite type of workout?",
+      image: maskot,
       id: "workout_type",
       options: [
         "Cardio",
@@ -77,6 +85,7 @@ export default function Onboarding() {
     {
       step: 5,
       titel: "Where do you currently work out?",
+      image: scepticMaskot,
       id: "location",
       options: ["Commercial Gym", "Home Gym", "Outside"],
       input: null,
@@ -85,6 +94,7 @@ export default function Onboarding() {
     {
       step: 6,
       titel: "How many days a week would you like to workout?",
+      image: maskot,
       id: "Days_per_week",
       undertitle: "",
       options: [],
@@ -112,6 +122,7 @@ export default function Onboarding() {
     {
       step: 7,
       titel: "What is your height?",
+      image: scepticMaskot,
       id: "height",
       undertitle: "",
       options: [],
@@ -128,6 +139,7 @@ export default function Onboarding() {
     {
       step: 8,
       titel: "What is your weight?",
+      image: scepticMaskot,
       id: "weight",
       undertitle: "",
       options: [],
@@ -143,8 +155,8 @@ export default function Onboarding() {
     },
     {
       step: 5,
-      titel:
-        "Good job! Your personal trainer would like to meet you and ask the last complementary questions in the chat",
+      image: maskot,
+      titel: "Good job! Now let's start your journey to a better you",
       undertitle: "",
       options: [],
       id: "Last Step",
@@ -156,12 +168,12 @@ export default function Onboarding() {
   // Make to JSON: console.log(JSON.stringify(state));
 
   return (
-    <div className="h-screen bg-gray-800 flex flex-col items-center justify-center text-slate-200">
+    <div className="h-screen bg-white flex flex-col items-center justify-center ">
       {state.step > 0 && (
         <IconArrowBack
           className="absolute top-5 left-5"
           size={30}
-          color="yellow"
+          color="lime"
           onClick={() =>
             dispatch({
               type: "PREV_STEP",
@@ -170,8 +182,21 @@ export default function Onboarding() {
         />
       )}
       <div className=" flex flex-col justify-center items-center w-11/12">
-        <h1>Onboarding</h1>
-        <h2>{steps[state.step].titel}</h2>
+        <div className="flex flex-row">
+          <Image
+            width={150}
+            fit="contain"
+            src={steps[state.step].image}
+            alt="dumbbells"
+          />
+          <div className="flex items-center p-4 mx-4 my-2 rounded-lg bg-white border border-black relative">
+            <div className="absolute left-0 top-1/2 w-4 h-4 bg-white transform -translate-y-1/2 -translate-x-2.5 rotate-45 border-l border-t border-black"></div>
+            <h2 className="text-base font-medium text-gray-900">
+              {steps[state.step].titel}
+            </h2>
+            <div className="absolute left-0 top-0 bottom-0 w-4 h-full rounded-full bg-white border border-black -ml-2"></div>
+          </div>
+        </div>
         <h4>{steps[state.step].undertitle}</h4>
         {steps[state.step].options.map((option) => (
           <Button
@@ -254,9 +279,9 @@ export default function Onboarding() {
             className="mt-4 w-3/6"
             variant="outline"
             color="gray"
-            onClick={() => navigate("/chat")}
+            onClick={() => navigate("/home")}
           >
-            Go To Chat
+            Start Journey
           </Button>
         )}
 

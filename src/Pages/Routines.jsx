@@ -228,7 +228,7 @@ const Routines = () => {
 
   const list = gymWeek[chosenDay].map((block, i) => (
     <Accordion.Item
-      key={block.label}
+      key={block.label + i}
       // onClick={() => handleClick(excercise)}
       variant="separated"
       // color="grape"
@@ -251,9 +251,10 @@ const Routines = () => {
       <Accordion.Panel>
         {block.data.map((excercise) => (
           <Group
-            key={excercise.name}
+            key={excercise.name + i}
             className="flex flex-row items-center justify-between mb-2"
             noWrap
+
             // onClick={() => handleClick(excercise)}
           >
             <div className="flex flex-row items-center justify-between">
@@ -282,7 +283,6 @@ const Routines = () => {
   console.log(chosenDay);
   return (
     <div className="bg-black h-screen">
-      <DateHeader />
       <Modal
         size="sm"
         opened={opened}
@@ -323,8 +323,8 @@ const Routines = () => {
         <p>{selectedExcercise.description}</p>
       </Modal>
 
-      <Title className="text-white">Routines</Title>
-      <h2 className="text-white mb-5">{chosenDay}</h2>
+      <Title className="text-white mt-5 mb-20">Todays Workout</Title>
+      {/* <h2 className="text-white mb-5">{chosenDay}</h2> */}
 
       <Accordion
         className="px-2 text-white"

@@ -36,6 +36,9 @@ import Chat from "./Components/Chat";
 import Profile from "./Pages/Profile";
 import Routines from "./Pages/Routines";
 import Onboarding from "./Components/Onboarding";
+import Duolingo from "./Pages/Duolingo";
+import { useEffect } from "react";
+import MainHeader from "./Components/MainHeader";
 
 // import MyNavbar from "./Components/MyNavbar";
 // Navbar
@@ -52,15 +55,25 @@ export default function App() {
     navigate(path);
     setOpened(false);
   };
+  useEffect(() => {
+    document.documentElement.classList.add("bg-black");
+    return () => {
+      document.documentElement.classList.remove("bg-black");
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <OnboardingContext.Provider value={{ state: state, dispatch: dispatch }}>
         {currentUrl === "/" ? (
           <Start />
+        ) : currentUrl === "/onboarding" ? (
+          <Onboarding />
         ) : (
           <AppShell
             padding="0"
+            className="bg-black text-white"
+            header={<MainHeader />}
             footer={
               <Footer
                 height={60}
@@ -84,7 +97,7 @@ export default function App() {
 
                 <NavLink
                   icon={<IconUserCircle size={30} stroke={1.5} color="white" />}
-                  onClick={() => navigateAndClose("/profile")}
+                  onClick={() => navigateAndClose("/home")}
                 />
               </Footer>
             }
@@ -93,7 +106,7 @@ export default function App() {
               <Route exact path="/" element={<Start />} />
               <Route exact path="/onboarding" element={<Onboarding />} />
               <Route exact path="/chat" element={<Chat />} />
-              <Route exact path="/profile" element={<Profile />} />
+              <Route exact path="/home" element={<Duolingo />} />
               <Route exact path="/routines" element={<Routines />} />
             </Routes>
           </AppShell>

@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.chat-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 80px; /* Adjust as necessary to leave space for other elements */
+  overflow-y: auto;
+}
+
+.chat-input {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* Adjust as necessary to match the height of the input element */
+}

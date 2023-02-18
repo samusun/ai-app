@@ -42,6 +42,7 @@ const DateHeader = () => {
       >
         {currentWeek.map((day) => (
           <div
+            key={day.date}
             className="flex flex-col justify-between items-center w-1/6"
             onClick={() => setSelectedDate(day.date)}
           >
