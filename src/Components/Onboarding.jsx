@@ -7,9 +7,16 @@ import {
   Slider,
   Textarea,
   Image,
+  Progress,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
-import { IconArrowBack, IconArrowBearLeft } from "@tabler/icons";
+import {
+  IconArrowAutofitLeft,
+  IconArrowBack,
+  IconArrowLeft,
+  IconArrowBearLeft,
+} from "@tabler/icons";
+
 import maskot from "../Assets/maskot.svg";
 import scepticMaskot from "../Assets/scepticMaskot.svg";
 
@@ -166,20 +173,32 @@ export default function Onboarding() {
   ];
 
   // Make to JSON: console.log(JSON.stringify(state));
-
+  console.log();
   return (
-    <div className="h-screen bg-white flex flex-col items-center justify-center ">
+    <div className="h-screen bg-white flex flex-col items-center justify-center">
       {state.step > 0 && (
-        <IconArrowBack
-          className="absolute top-5 left-5"
-          size={30}
-          color="lime"
-          onClick={() =>
-            dispatch({
-              type: "PREV_STEP",
-            })
-          }
-        />
+        <div className="absolute top-20 ">
+          <div className="flex flex-row items-center">
+            <IconArrowLeft
+              className="mr-6"
+              size={30}
+              color="gray"
+              onClick={() =>
+                dispatch({
+                  type: "PREV_STEP",
+                })
+              }
+            />
+            <Progress
+              className="w-60"
+              color="lime"
+              radius="xl"
+              size="xl"
+              value={((state.step + 1) / steps.length) * 100}
+            />
+            <IconArrowLeft className="ml-10" size={30} color="white" />
+          </div>
+        </div>
       )}
       <div className=" flex flex-col justify-center items-center w-11/12">
         <div className="flex flex-row">

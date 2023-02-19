@@ -7,9 +7,10 @@ const DayProgressItem = ({ day, color, top, left, zIndex }) => {
       style={{ top, left, zIndex }}
     >
       <div
-        className={`day-progress-item w-20 h-20 rounded-full bg-${color}-400 flex justify-center items-center hover:bg-${color}-500 transition-colors duration-200`}
+        className="day-progress-item w-20 h-20 rounded-full flex justify-center items-center hover:opacity-75 transition-opacity duration-200"
+        style={{ backgroundColor: color }}
       >
-        {day}
+        Day {day}
       </div>
     </div>
   );
@@ -37,23 +38,23 @@ const Duolingo = () => {
   ];
 
   const dayProgress = [
-    { day: 1, color: "green" },
-    { day: 2, color: "yellow" },
-    { day: 3, color: "red" },
-    { day: 4, color: "blue" },
-    { day: 5, color: "purple" },
-    { day: 6, color: "pink" },
-    { day: 7, color: "orange" },
-    { day: 8, color: "green" },
-    { day: 9, color: "yellow" },
-    { day: 10, color: "red" },
-    { day: 11, color: "blue" },
-    { day: 12, color: "purple" },
-    { day: 13, color: "pink" },
-    { day: 14, color: "orange" },
-    { day: 15, color: "green" },
-    { day: 16, color: "yellow" },
-    { day: 17, color: "red" },
+    { day: 1, color: "#FFA726" },
+    { day: 2, color: "#29B6F6" },
+    { day: 3, color: "#66BB6A" },
+    { day: 4, color: "#FF7043" },
+    { day: 5, color: "#9575CD" },
+    { day: 6, color: "#FFCA28" },
+    { day: 7, color: "#4DD0E1" },
+    { day: 8, color: "#FFA726" },
+    { day: 9, color: "#29B6F6" },
+    { day: 10, color: "#66BB6A" },
+    { day: 11, color: "#FF7043" },
+    { day: 12, color: "#9575CD" },
+    { day: 13, color: "#FFCA28" },
+    { day: 14, color: "#4DD0E1" },
+    { day: 15, color: "#FFA726" },
+    { day: 16, color: "#29B6F6" },
+    { day: 17, color: "#66BB6A" },
   ];
 
   return (
