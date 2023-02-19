@@ -1,10 +1,12 @@
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
-const DayProgressItem = ({ day, color, top, left, zIndex }) => {
+const DayProgressItem = ({ day, color, top, left, zIndex, onClick }) => {
   return (
     <div
       className="day-progress absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full shadow-lg cursor-pointer transition-colors duration-200"
       style={{ top, left, zIndex }}
+      onClick={onClick}
     >
       <div
         className="day-progress-item w-20 h-20 rounded-full flex justify-center items-center hover:opacity-75 transition-opacity duration-200"
@@ -17,6 +19,7 @@ const DayProgressItem = ({ day, color, top, left, zIndex }) => {
 };
 
 const Duolingo = () => {
+  const navigate = useNavigate();
   const positionMap = [
     { top: "33%", left: "50%", zIndex: 1 },
     { top: "45%", left: "60%", zIndex: 2 },
@@ -67,6 +70,7 @@ const Duolingo = () => {
           top={positionMap[index].top}
           left={positionMap[index].left}
           zIndex={positionMap[index].zIndex}
+          onClick={() => navigate("/routines")}
         />
       ))}
     </div>

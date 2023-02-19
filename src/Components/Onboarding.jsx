@@ -123,7 +123,7 @@ export default function Onboarding() {
         { value: 7, label: "7 days" },
       ],
       label: (val) =>
-        steps[state.step].marks.find((mark) => mark.value === val).label,
+        steps[state.step].marks?.find((mark) => mark.value === val).label,
     },
 
     {
@@ -172,12 +172,22 @@ export default function Onboarding() {
     },
   ];
 
+  const handleEnter = (event, id) => {
+    if (event.key === "Enter") {
+      dispatch({
+        type: "SET_INPUT",
+        input: sliderInput,
+        id: id,
+      });
+    }
+  };
+
   // Make to JSON: console.log(JSON.stringify(state));
   console.log();
   return (
     <div className="h-screen bg-white flex flex-col items-center justify-center">
       {state.step > 0 && (
-        <div className="absolute top-20 ">
+        <div className="absolute top-10 ">
           <div className="flex flex-row items-center">
             <IconArrowLeft
               className="mr-6"
@@ -222,7 +232,8 @@ export default function Onboarding() {
             key={option}
             className="mb-4 w-5/6"
             variant="outline"
-            color="gray"
+            radius="xl"
+            color="green"
             onClick={() =>
               steps[state.step].step === 0
                 ? dispatch({
@@ -248,14 +259,16 @@ export default function Onboarding() {
               labelAlwaysOn
               min={steps[state.step].min}
               max={steps[state.step].max}
-              color="light"
+              color="green"
+              radius="xl"
               marks={steps[state.step].marks}
               styles={{ markLabel: { display: "none" } }}
             />
             <Button
               className="mt-4 w-3/6"
               variant="outline"
-              color="gray"
+              color="green"
+              radius="xl"
               onClick={() =>
                 dispatch({
                   type: "SET_INPUT",
@@ -275,11 +288,13 @@ export default function Onboarding() {
               onChange={(event) => setName(event.currentTarget.value)}
               className="w-4/5"
               color="light"
+              onKeyPress={(event) => handleEnter(event, steps[state.step].id)}
             />
             <Button
               className="mt-4 w-3/6"
               variant="outline"
-              color="gray"
+              color="green"
+              radius="xl"
               onClick={() =>
                 dispatch({
                   type: "SET_INPUT",
@@ -297,16 +312,13 @@ export default function Onboarding() {
           <Button
             className="mt-4 w-3/6"
             variant="outline"
-            color="gray"
+            color="green"
+            radius="xl"
             onClick={() => navigate("/home")}
           >
             Start Journey
           </Button>
         )}
-
-        <p>
-          {state.step}/{steps.length - 1}
-        </p>
       </div>
     </div>
   );
