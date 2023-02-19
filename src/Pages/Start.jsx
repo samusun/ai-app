@@ -9,7 +9,7 @@ export default function Start() {
 
   return (
     <div className="min-h-screen flex bg-white items-center justify-center">
-      <div className="flex flex-col h-60 jutsify-center m-5 items-center ">
+      <div className="flex flex-col jutsify-center m-5 items-center ">
         <Image src={maskotWelcome} alt="dumbbells" />
         <Button
           onClick={() => navigate("/onboarding")}

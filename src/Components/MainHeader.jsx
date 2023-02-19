@@ -8,7 +8,7 @@ import star from "../Assets/star.svg";
 
 const MainHeader = () => {
   return (
-    <div className="mt-5 mx-3">
+    <div className="pt-5 px-3 bg-black ">
       <div className="flex flex-row w-full justify-between">
         <Image height={30} width={30} src={dumbbells} alt="dumbbells" />
         <div className="flex flex-row items-center">

@@ -280,9 +280,9 @@ const Routines = () => {
       </Accordion.Panel>
     </Accordion.Item>
   ));
-  console.log(chosenDay);
+
   return (
-    <div className="bg-black h-screen">
+    <div className="bg-black">
       <Modal
         size="sm"
         opened={opened}

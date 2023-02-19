@@ -14,7 +14,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const divRef = useRef(null);
   const [input, setInput] = useState("");
-  const [disabled, setDisabled] = useState(false);
+
   const openaiCalled = useRef(false);
 
   const DEFAULT_PARAMS = {
@@ -47,7 +47,6 @@ const Chat = () => {
     // Update the conversation history
     // setDisabled(false);
     setMessages((prevState) => [...prevState, { user: "bot", text: message }]);
-    setDisabled(false);
   };
 
   // console.log("conversationHistory", conversationHistory);
@@ -65,10 +64,11 @@ const Chat = () => {
   };
 
   const handleEnter = (event) => {
-    if (event.key === "Enter" && !disabled) {
-      handle_input(input);
+    console.log(event.key);
+
+    if (event.key === "Enter") {
+      handleRequest(input);
     }
-    setDisabled(true);
   };
   const chatSettings = {
     ai: {
@@ -102,7 +102,7 @@ const Chat = () => {
   const handleRequest = (input) => {
     console.log("convo history", conversationHistory);
     console.log("messages", messages);
-    setDisabled(true);
+
     handle_input(input);
   };
 
@@ -134,7 +134,7 @@ const Chat = () => {
     <div className="h-full bg-black">
       <div
         ref={divRef}
-        className="absolute top-25 left-0 right-0 max-h-[36rem] overflow-y-scroll m-5"
+        className="absolute top-28 left-0 right-0 max-h-[36rem] overflow-y-scroll m-5"
       >
         {messages.map((item, i) => (
           <div
@@ -155,8 +155,7 @@ const Chat = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         minRows={2}
-        disabled={disabled}
-        onKeyPress={() => handleEnter}
+        onKeyPress={(event) => handleEnter(event)}
         rightSection={
           <Tooltip
             label="This is public"
@@ -167,7 +166,11 @@ const Chat = () => {
             }}
           >
             <div>
-              <IconSend size={18} style={{ display: "block", opacity: 0.5 }} />
+              <IconSend
+                className="z-30"
+                size={18}
+                style={{ display: "block", opacity: 0.5 }}
+              />
             </div>
           </Tooltip>
         }

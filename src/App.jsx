@@ -72,8 +72,12 @@ export default function App() {
         ) : (
           <AppShell
             padding="0"
-            className="bg-black text-white"
-            header={<MainHeader />}
+            className="bg-black text-white "
+            header={
+              <Header className="p-0">
+                <MainHeader />
+              </Header>
+            }
             footer={
               <Footer
                 height={60}
