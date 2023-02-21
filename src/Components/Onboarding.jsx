@@ -183,7 +183,6 @@ export default function Onboarding() {
   };
 
   // Make to JSON: console.log(JSON.stringify(state));
-  console.log();
   return (
     <div className="h-screen bg-white flex flex-col items-center justify-center">
       {state.step > 0 && (

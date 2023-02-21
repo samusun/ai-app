@@ -1,5 +1,7 @@
+import { Image } from "@mantine/core";
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import maskotFlying from "../Assets/maskotFlying.svg";
 
 const DayProgressItem = ({ day, color, top, left, zIndex, onClick }) => {
   return (
@@ -14,6 +16,17 @@ const DayProgressItem = ({ day, color, top, left, zIndex, onClick }) => {
       >
         Day {day}
       </div>
+    </div>
+  );
+};
+
+const DayProgressExtra = ({ top, left, zIndex }) => {
+  return (
+    <div
+      className="day-progress absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full shadow-lg cursor-pointer transition-colors duration-200"
+      style={{ top, left, zIndex }}
+    >
+      <Image height={120} src={maskotFlying} alt="dumbbells" />
     </div>
   );
 };
@@ -62,17 +75,34 @@ const Duolingo = () => {
 
   return (
     <div className="bg-black text-white h-screen flex justify-center items-center">
-      {dayProgress.map((day, index) => (
-        <DayProgressItem
-          key={day.day}
-          day={day.day}
-          color={day.color}
-          top={positionMap[index].top}
-          left={positionMap[index].left}
-          zIndex={positionMap[index].zIndex}
-          onClick={() => navigate("/routines")}
-        />
-      ))}
+      {dayProgress.map((day, index) => {
+        // Determine if the current index corresponds to a position of 0, 4, 8, etc.
+        const shouldRenderExtra = index === 3 || index === 9;
+        // Determine the value of the "left" variable based on the position
+        const left = (index + 1) % 10 === 0 ? 250 : 100;
+
+        return (
+          <div key={day.day}>
+            <DayProgressItem
+              key={day.day}
+              day={day.day}
+              color={day.color}
+              top={positionMap[index].top}
+              left={positionMap[index].left}
+              zIndex={positionMap[index].zIndex}
+              onClick={() => navigate(`/challange`)}
+            />
+            {/* Only render the DayProgressExtra component if the index corresponds to a position of 0, 4, 8, etc. */}
+            {shouldRenderExtra && (
+              <DayProgressExtra
+                top={positionMap[index].top}
+                left={left}
+                zIndex={positionMap[index].zIndex}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

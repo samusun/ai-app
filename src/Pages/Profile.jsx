@@ -30,7 +30,7 @@ const Profile = () => {
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
-  console.log(state.loggedIn);
+
   return !state.loggedIn ? (
     <Signup />
   ) : (

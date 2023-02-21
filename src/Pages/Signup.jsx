@@ -1,4 +1,4 @@
-import { Box, Button, PasswordInput, TextInput, Title } from "@mantine/core";
+import { Button, PasswordInput, TextInput, Title } from "@mantine/core";
 import React, { useContext, useState } from "react";
 import OnboardingContext from "../Context/OnboardingContext";
 
@@ -68,7 +68,7 @@ function Signup() {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center justify-center">
       <Title className="text-white">Sign up</Title>
-      <h4 className="text-white mb-5">To keep your routines and .. stuff</h4>
+      <h4 className="text-white mb-5">Signup to keep your progress</h4>
       <form className="flex justify-center flex-col" onSubmit={handleSubmit}>
         <div>
           <TextInput

@@ -100,9 +100,6 @@ const Chat = () => {
   };
 
   const handleRequest = (input) => {
-    console.log("convo history", conversationHistory);
-    console.log("messages", messages);
-
     handle_input(input);
   };
 
@@ -134,7 +131,8 @@ const Chat = () => {
     <div className="h-full bg-black">
       <div
         ref={divRef}
-        className="absolute top-28 left-0 right-0 max-h-[36rem] overflow-y-scroll m-5"
+        className="absolute top-28 left-0 right-0 max-h-[36rem] m-5"
+        style={{ overflowY: "auto" }}
       >
         {messages.map((item, i) => (
           <div
@@ -149,7 +147,7 @@ const Chat = () => {
         ))}
       </div>
       <Textarea
-        className="absolute bottom-20 px-3 left-0 right-0 "
+        className="absolute bottom-20 px-3 left-0 right-0 overflow-hidden"
         autosize
         placeholder="Write your message here"
         value={input}

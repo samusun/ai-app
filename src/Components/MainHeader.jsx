@@ -1,6 +1,6 @@
 import { Image, Progress, Text } from "@mantine/core";
-import { IconCircle, IconArrow, IconArrowDown } from "@tabler/icons";
-import React, { useState } from "react";
+
+import React from "react";
 import dumbbells from "../Assets/dumbbells.svg";
 import fire from "../Assets/fire.svg";
 import gem from "../Assets/gem.svg";

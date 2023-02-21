@@ -53,3 +53,11 @@
   right: 0;
   height: 60px; /* Adjust as necessary to match the height of the input element */
 }
+
+.footer-link {
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  background-color: transparent;
+}

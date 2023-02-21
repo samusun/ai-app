@@ -28,6 +28,8 @@ export const onboardingReducer = (state, action) => {
       };
     case "SET_INPUT":
       return { ...state, [action.id]: action.input, step: state.step + 1 };
+    case "QUICK_LOGIN":
+      return { loggedIn: true, step: 9 };
     default:
       return state;
   }
