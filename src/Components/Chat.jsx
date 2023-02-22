@@ -64,8 +64,6 @@ const Chat = () => {
   };
 
   const handleEnter = (event) => {
-    console.log(event.key);
-
     if (event.key === "Enter") {
       handleRequest(input);
     }

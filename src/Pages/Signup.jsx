@@ -1,4 +1,6 @@
 import { Button, PasswordInput, TextInput, Title } from "@mantine/core";
+import Amplify, { API } from "aws-amplify";
+
 import React, { useContext, useState } from "react";
 import OnboardingContext from "../Context/OnboardingContext";
 
@@ -10,6 +12,16 @@ function Signup() {
     password: "",
     confirmPassword: "",
   });
+
+  const fetchUsers = async () => {
+    try {
+      const todosData = await API.graphql(graphqlOperation(listTodos));
+      const TodosList = todosData.data.listTodos.items;
+      console.log("song list", songList);
+    } catch (error) {
+      console.log("error on fetching data", error);
+    }
+  };
 
   const [errors, setErrors] = useState({
     name: "",
@@ -111,7 +123,7 @@ function Signup() {
           />
           <p className=" mt-1 text-red-400">{errors.confirmPassword}</p>
         </div>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={() => fetchUsers()}>Submit</Button>
       </form>
     </div>
   );

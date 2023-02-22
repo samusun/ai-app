@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-workout-dev-211738-authRole",
+      "UnauthRoleArn": "arn:aws:iam::055170626584:role/amplify-workout-dev-211738-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::055170626584:role/amplify-workout-dev-211738-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-workout-dev-211738-deployment",
+      "UnauthRoleName": "amplify-workout-dev-211738-unauthRole",
+      "StackName": "amplify-workout-dev-211738",
+      "StackId": "arn:aws:cloudformation:eu-north-1:055170626584:stack/amplify-workout-dev-211738/f6c062b0-b2ed-11ed-ad3b-0a1aeef1711a",
+      "AmplifyAppId": "d2t121pycfgs36"
+    },
+    "categories": {
+      "api": {
+        "workout": {}
+      }
+    }
+  }
+}
