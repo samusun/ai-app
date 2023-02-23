@@ -29,8 +29,17 @@ import { useEffect } from "react";
 import MainHeader from "./Components/MainHeader";
 import Challange from "./Components/Challange";
 
-const queryClient = new QueryClient();
-export default function App() {
+import { Amplify } from "aws-amplify";
+
+import { withAuthenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+import awsExports from "./aws-exports";
+import Signup from "./Pages/Signup";
+
+const App = () => {
+  const queryClient = new QueryClient();
+  Amplify.configure(awsExports);
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
   const [state, dispatch] = useReducer(onboardingReducer, initialValues);
@@ -80,9 +89,9 @@ export default function App() {
                 />
                 <NavLink
                   icon={<IconMessage size={30} stroke={1.5} color="white" />}
-                  onClick={() => navigateAndClose("/chat")}
                   className="footer-link"
                 />
+
                 <NavLink
                   icon={<IconActivity size={30} stroke={1.5} color="white" />}
                   onClick={() => navigateAndClose("/routines")}
@@ -104,10 +113,13 @@ export default function App() {
               <Route exact path="/challange" element={<Challange />} />
               <Route exact path="/routines" element={<Routines />} />
               <Route exact path="/profile" element={<Profile />} />
+              <Route exact path="/signup" element={<Signup />} />
             </Routes>
           </AppShell>
         )}
       </OnboardingContext.Provider>
     </QueryClientProvider>
   );
-}
+};
+
+export default App;

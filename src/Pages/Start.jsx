@@ -19,7 +19,7 @@ export default function Start() {
       <div className="flex flex-col jutsify-center m-5 items-center ">
         <Image src={maskotWelcome} alt="dumbbells" />
         <Button
-          onClick={() => navigate("/onboarding")}
+          onClick={() => navigate("/profile")}
           radius="xl"
           size="xl"
           color="lime"

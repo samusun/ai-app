@@ -18,6 +18,8 @@ import { useMantineTheme } from "@mantine/core";
 import OnboardingContext from "../Context/OnboardingContext";
 import Signup from "./Signup";
 import { IconLogout } from "@tabler/icons";
+import { useNavigate } from "react-router-dom";
+import { Auth } from "aws-amplify";
 
 const Profile = () => {
   const theme = useMantineTheme();
@@ -26,13 +28,59 @@ const Profile = () => {
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newAdress, setNewAdress] = useState("");
-
+  const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
 
-  return !state.loggedIn ? (
-    <Signup />
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = async () => {
+    try {
+      await Auth.signIn(email, password);
+    } catch (error) {
+      setLoginError(error.message);
+    }
+  };
+
+  async function signOut() {
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  }
+  console.log();
+
+  return !Auth?.user?.username ? (
+    <div className="h-screen m-20">
+      <div className="flex flex-col justify-center items-center ">
+        <h1>Sign In</h1>
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {<p>{loginError}</p>}
+        <Button className="mt-4" onClick={handleSignIn}>
+          Sign In
+        </Button>
+        <p className="mb-1">Not a user yet?</p>
+        <Button onClick={() => navigate("/signup")}>Sign up</Button>
+        <Button onClick={() => signOut()}>Sign out</Button>
+      </div>
+    </div>
   ) : (
     <div className="h-screen m-20">
       <div className="flex flex-col justify-center items-center ">
@@ -45,7 +93,7 @@ const Profile = () => {
           mr="5"
         />
         <Title fontWeight="medium" mb="2">
-          {state.user.name}
+          {/* {state.user.name} */}
         </Title>
         <Button
           variant="outline"
@@ -90,7 +138,7 @@ const Profile = () => {
 
       <div className="flex justify-center items-center flex-col mt-20">
         <Text fontWeight="medium" mb="2">
-          {state.user.email}
+          {/* {state.user.email} */}
         </Text>
         {/* <Text fontWeight="medium" mb="2">
           Phone: 040456
@@ -100,7 +148,7 @@ const Profile = () => {
           Address: Coolstreet 44
           {state.user.address}
         </Text> */}
-        <Button onClick={() => logout()}>Logout</Button>
+        <Button onClick={() => signOut()}>Logout</Button>
       </div>
     </div>
   );
